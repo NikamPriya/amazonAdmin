@@ -1,0 +1,46 @@
+<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="javascript:void(0)">Logo</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="mynavbar">
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="category">Category</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="product">Product</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="cart-page">Link</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="orders-page">Link</a>
+        </li>
+      </ul>
+      <form class="d-flex">
+        
+        <button class="btn btn-primary" type="button">LogOFf</button>
+      </form>
+    </div>
+  </div>
+</nav>
+
+<!-- <div class="row pt-1">
+    <div class="col-12">
+      <ul class="nav-links">
+        <li><a routerLink="dashboard">Dashboard</a></li>
+        <li class="upward"><a routerLink="category">Category</a></li>
+        <li class="forward"><a routerLink="product">Product</a></li>
+        <li class="forward"><a routerLink="cart-page">Cart</a></li>
+        <li class="forward"><a routerLink="orders-page">Order</a></li>
+      </ul>
+    </div>
+  </div> -->
+
+  
+  <div class="container">
+    <router-outlet></router-outlet>
+</div>  
+

@@ -1,0 +1,52 @@
+<div class="row p-5">
+    <div class="col-6">
+        <div class="card">
+            <div class="card-header text-center " style="background-color: rgb(244, 215, 220)">
+                <b> Product Category</b>
+            </div>
+            <div class="card-body">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th> Sr No</th>
+                            <th>Name</th>
+                            <th>Category Id</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let data of categoryList; let Sr= index">
+                            <td>{{Sr +1}}</td>
+                            <td>{{data.categoryName}}</td> 
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-6">
+        <div class="card">
+            <div class="card-header text-center " style="background-color: rgb(244, 215, 220)">
+                <b> Create New Category</b>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12">
+                        <label>Category Name <span class="text-danger">*</span></label><br>
+                        <input type="text" class="form-control" #CategoryName="ngModel" required [(ngModel)]="categoryObj.CategoryName">
+                        <div class="text-danger" *ngIf="CategoryName.touched || CategoryName.dirty">
+                            <span *ngIf="CategoryName.errors?.['required']">Required Field</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row pt-5">
+                    <div class="col-12">
+                        <button class="btn  btn-sm" style="background-color: rgb(231, 129, 146); border-radius: 10px;" (click)="saveCategory()">Save</button>        
+                    </div>
+                </div>        
+            </div>
+        </div>
+    </div>
+</div>
+

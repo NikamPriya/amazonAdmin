@@ -1,0 +1,168 @@
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="#">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Products</li>
+    </ol>
+</nav>
+<div class="row">
+    <div class="col-12 text-end">
+        <button class="btn btn-primary" (click)="isCardView = !isCardView">Toggle View</button>
+        <button type="button" class="btn btn-primary text-end" data-bs-toggle="modal" data-bs-target="#exampleModal"
+            data-bs-whatever="@mdo" (click)="openPopup()"><b>Add New Product</b></button>
+    </div>
+</div>
+<div class="row" *ngIf="isCardView">
+    <div class="col-3 pt-2" *ngFor="let data of productList">
+        <div class="card">
+            <div class="card-header bg-success">
+                {{data.productShortName}}
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-6">
+                       SKU: {{data.productSku}}
+                    </div>
+                    <div class="col-6 text-end">
+                      Price:  {{data.deliveryTimeSpan }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 text-center">
+                        {{data.categoryName}}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 text-end">
+                        <strong> {{data.productPrice}}</strong>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <div class="row">
+                    <div class="col-6">
+                        <button class="btn btn-sm btn-success">Edit</button>
+                    </div>
+                    <div class="col-6 text-end">
+                        <button class="btn btn-sm btn-danger">Delete</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row" *ngIf="!isCardView">
+    <div class="col-12">
+        <table class="table table-bordered table-stripped">
+            <thead>
+                <tr>
+                    <th>Sr No</th>
+                    <th>Short Name</th>
+                    <th>Created Date</th>
+                    <th>Category</th>
+                    <th>Price</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let data of productList;let sr=index">
+                    <td>{{sr+1}}</td>
+                    <td>{{data.productShortName}}</td>
+                    <td>{{data.createdDate |date:'dd-MMM-yy'}}</td>
+                    <td>{{data.categoryName}}</td>
+                    <td>{{data.productPrice}}</td>
+                    <td>
+
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+<div class="parent">
+    <div class="row">
+        <div class="col-12  pt-3 ">
+
+            <div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':displayStyle}">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title text-center">Add New Product</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row mx-2 ">
+                                <div class="col-4 ">
+                                    <label>Product Name</label>
+                                    <input type="text" [(ngModel)]="productObj.productName" class="form-control">
+                                </div>
+                                <div class="col-4">
+                                    <label>Product Price <span class="text-danger">*</span></label>
+                                    <input type="text" #productPrice="ngModel" required
+                                        [(ngModel)]="productObj.productPrice" class="form-control">
+                                    <div class="text-danger" *ngIf="productPrice.touched || productPrice.dirty">
+                                        <span *ngIf="productPrice.errors?.['required']">Required Field</span>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <label>Model Number</label>
+                                    <input type="number" [(ngModel)]="productObj.productShortName" class="form-control">
+                                </div>
+                            </div>
+                            <div class="row mx-2 pt-4">
+                                <div class="col-4">
+                                    <label for="">Select Category </label>
+                                    <select class="form-control" [(ngModel)]="productObj.categoryId">
+                                        <option value="">Select Category</option>
+                                        <option *ngFor="let data of categoryList" [value]="data.categoryId">
+                                            {{data.categoryName}}
+                                        </option>
+                                    </select>
+                                </div>
+                                <div class="col-4">
+                                    <label>Mfg Date</label>
+                                    <input type="date" [(ngModel)]="productObj.createdDate" class="form-control">
+                                </div>
+                                <div class="col-4">
+                                    <label>Delivery Time</label>
+                                    <input type="number" [(ngModel)]="productObj.deliveryTimeSpan" class="form-control">
+                                </div>
+                            </div>
+                            <div class="row mx-2 pt-4">
+                                <div class="col-4">
+                                    <label>ProductSku</label>
+                                    <input type="text" [(ngModel)]="productObj.productSku" class="form-control">
+                                </div>
+                                <div class="col-4">
+                                    <label>ProductImageUrl</label>
+                                    <input type="text" [(ngModel)]="productObj.productImageUrl" class="form-control">
+                                </div>
+                                <div class="col-4">
+                                    <label>Product Description</label>
+                                    <textarea rows="4" type="number" [(ngModel)]="productObj.productDescription"
+                                        class="form-control "></textarea>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" (click)="closePopup()"> Close </button>
+                            <button class="btn  mx-5" style="background-color: rgb(231, 129, 146)"
+                                (click)="saveProduct()">Save </button>
+                            <button class="btn  mx-5" style="background-color: rgb(231, 129, 146)"
+                                (click)="onUpdate()">Update </button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- <button class="btn " (click)="showCard()" style="background-color: rgb(231, 129, 146)"><b>Add New -->
+            <!-- Product</b></button> -->
+        </div>
+    </div>
+</div>
+
+
+
+ 
